@@ -1,0 +1,19 @@
+.input {
+  .label {
+    color: gray;
+    margin-bottom: 5px;
+  }
+  .ant-select {
+    width: 100%;
+  }
+  .ant-input-number {
+    width: 100%;
+  }
+
+  .error {
+    border-color: red !important;
+    .ant-select {
+      border-color: red !important;
+    }
+  }
+}

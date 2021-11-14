@@ -1,17 +1,19 @@
+import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import configureStore from './store';
 
 // components
 import Users from 'components/Users';
-import User from 'components/User';
 
 const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/users" element={<Users />} />
-      <Route path="/users/:userId" element={<User />} />
-      <Route path="*" element={<Navigate to="/users" />} />
-    </Routes>
-  </BrowserRouter>
+  <Provider store={configureStore()}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/users" element={<Users />} />
+        <Route path="*" element={<Navigate to="/users" />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 );
 
 export default App;
