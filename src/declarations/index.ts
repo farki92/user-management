@@ -52,6 +52,8 @@ export type TUsersState = {
   errors: string[];
   formData: TUserDto;
   modalStatus: UserModalStatuses;
+  filter: string;
+  order: Record<string, FilterTypes>;
 };
 
 export type TState = {
@@ -59,3 +61,8 @@ export type TState = {
 };
 
 export type TDispatch = ThunkDispatch<TState, null, TAction>;
+
+export enum FilterTypes {
+  ASCENDING = 'asc',
+  DESCENDING = 'desc'
+}

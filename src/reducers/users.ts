@@ -12,7 +12,9 @@ export const defaultState: TUsersState = {
   isLoading: false,
   errors: [],
   formData: DEFAULT_USER_FORM_DATA,
-  modalStatus: UserModalStatuses.SLEEP
+  modalStatus: UserModalStatuses.SLEEP,
+  filter: '',
+  order: {}
 };
 
 export default createReducer<TUsersState, ActionType<typeof Actions>>(
@@ -21,6 +23,14 @@ export default createReducer<TUsersState, ActionType<typeof Actions>>(
   .handleAction(Actions.setModalStatus, (state, {payload}) => ({
     ...state,
     modalStatus: payload
+  }))
+  .handleAction(Actions.setOrder, (state, {payload}) => ({
+    ...state,
+    order: payload
+  }))
+  .handleAction(Actions.setFilter, (state, {payload}) => ({
+    ...state,
+    filter: payload
   }))
   .handleAction(Actions.setData, (state, {payload}) => ({
     ...state,

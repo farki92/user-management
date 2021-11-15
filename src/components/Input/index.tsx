@@ -16,8 +16,9 @@ type TProps = {
   type: string;
   value: string;
   onChange: (date: string) => void;
-  label: string;
-  hasError: boolean;
+  label?: string;
+  hasError?: boolean;
+  placeholder?: string;
 };
 
 const Input: React.FC<TProps> = ({type, ...rest}) => {

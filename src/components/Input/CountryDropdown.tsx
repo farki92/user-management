@@ -11,8 +11,8 @@ import COUNTRIES from 'constants/countries';
 type TProps = {
   value: string;
   onChange: (value: string) => void;
-  label: string;
-  hasError: boolean;
+  label?: string;
+  hasError?: boolean;
 };
 
 const countryEntries = Object.entries(COUNTRIES);

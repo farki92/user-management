@@ -1,4 +1,4 @@
-import {TUserDto} from 'declarations';
+import {FilterTypes, TUserDto} from 'declarations';
 
 export const DEFAULT_USER_FORM_DATA: TUserDto = {
   email: '',
@@ -32,3 +32,10 @@ export const USER_FORM_DATA_INPUTS = [
   {key: 'title', input: 'text', props: {label: 'Title:'}, required: true},
   {key: 'balance', input: 'number', props: {label: 'Balance:'}, required: true}
 ];
+
+export const SORT_OPTIONS = {
+  balance: [
+    {label: 'Balance - Asc.', value: FilterTypes.ASCENDING},
+    {label: 'Balance - Desc.', value: FilterTypes.DESCENDING}
+  ]
+};

@@ -1,18 +1,22 @@
 // hooks
-import {useNavigate} from 'react-router';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {useUserQueryString} from 'hooks/users';
+import {useFilter, useOrder, useUserQueryString} from 'hooks/users';
 
 // components
-import {Row, Col, Layout, Pagination} from 'antd';
+import {Row, Col, Layout} from 'antd';
 import Loader from 'components/Loader';
 import AddUserButton from 'components/AddUserButton';
 import UserModal from 'components/UserModal';
+import Text from 'components/Input/Text';
+import SingleSelect from 'components/Input/SingleSelect';
 import UserItem from './UserItem';
 
 // selectors
-import {getUsersData, getUsersIsLoading} from 'selectors/users';
+import {
+  getFilteredAndOrderedUsersData,
+  getUsersIsLoading
+} from 'selectors/users';
 
 // actions
 import {setModalStatus, setFormData, fetchUsers} from 'actions/users';
@@ -20,20 +24,24 @@ import {setModalStatus, setFormData, fetchUsers} from 'actions/users';
 // utils
 import {omit} from 'lodash';
 
-// styles
-import './users.scss';
+// constants
+import {SORT_OPTIONS} from 'constants/users';
 
 // declarations
 import {UserModalStatuses} from 'declarations';
 
-const {Header, Footer, Content} = Layout;
+// styles
+import './users.scss';
+
+const {Header, Content} = Layout;
 
 const Users = () => {
   const dispatch = useDispatch();
-  const users = useSelector(getUsersData);
+  const users = useSelector(getFilteredAndOrderedUsersData);
   const isLoading = useSelector(getUsersIsLoading);
-  const {queryString, params} = useUserQueryString();
-  const navigate = useNavigate();
+  const {filter, setFilter} = useFilter();
+  const {order, setOrder} = useOrder();
+  const {queryString} = useUserQueryString();
 
   useEffect(() => {
     dispatch(fetchUsers(queryString));
@@ -51,53 +59,52 @@ const Users = () => {
       <UserModal />
       <Layout>
         <Header>
-          <h1 className="users_header">Users</h1>
-        </Header>
-        <Content>
-          <Row>
-            <Col xs={0} md={2} lg={5} />
-            <Col xs={24} md={20} lg={14}>
-              <ul className="users_list">
-                {users.map((user) => (
-                  <UserItem
-                    key={user.id}
-                    user={user}
-                    openEditUserModal={() => {
-                      dispatch(
-                        setFormData(
-                          omit(user, [
-                            'gender',
-                            'createdAt',
-                            'updatedAt',
-                            'birthdate',
-                            'avatar',
-                            'about'
-                          ])
-                        )
-                      );
-                      dispatch(setModalStatus(UserModalStatuses.EDIT));
-                    }}
-                  />
-                ))}
-              </ul>
-            </Col>
-            <Col xs={0} md={2} lg={5} />
-          </Row>
-        </Content>
-        <Footer>
-          <div className="users_pagination">
-            <Pagination
-              current={params.page}
-              total={120}
-              pageSize={params.pageSize}
-              disabled={isLoading}
-              hideOnSinglePage
-              onChange={(page) => {
-                navigate(`/users?page=${page}`);
-              }}
-            />
+          <div className="users_header">
+            <h1>Users</h1>
+            <Text value={filter} onChange={setFilter} placeholder="Search" />
+            {Object.keys(SORT_OPTIONS).map((key, index) => (
+              <SingleSelect
+                key={key + index}
+                value={order[key]}
+                options={SORT_OPTIONS[key]}
+                onChange={(value) => setOrder({key, value})}
+              />
+            ))}
           </div>
-        </Footer>
+        </Header>
+        <Content className="users_content">
+          <div className="users_content_wrapper">
+            <Row>
+              <Col xs={0} md={2} lg={5} />
+              <Col xs={24} md={20} lg={14}>
+                <ul className="users_list">
+                  {users.map((user) => (
+                    <UserItem
+                      key={user.id}
+                      user={user}
+                      openEditUserModal={() => {
+                        dispatch(
+                          setFormData(
+                            omit(user, [
+                              'createdAt',
+                              'updatedAt',
+                              'gender',
+                              'about',
+                              'birthdate',
+                              'avatar'
+                            ])
+                          )
+                        );
+                        dispatch(setModalStatus(UserModalStatuses.EDIT));
+                      }}
+                    />
+                  ))}
+                </ul>
+              </Col>
+              <Col xs={0} md={2} lg={5} />
+            </Row>
+          </div>
+        </Content>
       </Layout>
     </>
   );
