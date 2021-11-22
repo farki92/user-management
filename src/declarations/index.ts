@@ -8,7 +8,7 @@ export type TUser = {
   lastName: string;
   country: string;
   title: string;
-  balance: number;
+  balance: string;
   about: string;
   avatar: string;
   gender: string;
@@ -24,7 +24,7 @@ export type TUserDto = {
   lastName: string;
   country: string;
   title: string;
-  balance: number;
+  balance: string;
 };
 
 export enum UserModalActions {
@@ -53,7 +53,7 @@ export type TUsersState = {
   formData: TUserDto;
   modalStatus: UserModalStatuses;
   filter: string;
-  order: Record<string, FilterTypes>;
+  order: Record<string, OrderTypes>;
 };
 
 export type TState = {
@@ -62,7 +62,7 @@ export type TState = {
 
 export type TDispatch = ThunkDispatch<TState, null, TAction>;
 
-export enum FilterTypes {
+export enum OrderTypes {
   ASCENDING = 'asc',
   DESCENDING = 'desc'
 }

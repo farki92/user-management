@@ -1,4 +1,4 @@
-import {FilterTypes, TUserDto} from 'declarations';
+import {OrderTypes, TUserDto} from 'declarations';
 
 export const DEFAULT_USER_FORM_DATA: TUserDto = {
   email: '',
@@ -6,7 +6,7 @@ export const DEFAULT_USER_FORM_DATA: TUserDto = {
   lastName: '',
   country: '',
   title: '',
-  balance: 0
+  balance: '0'
 };
 
 export const USER_FORM_DATA_INPUTS = [
@@ -35,7 +35,7 @@ export const USER_FORM_DATA_INPUTS = [
 
 export const SORT_OPTIONS = {
   balance: [
-    {label: 'Balance - Asc.', value: FilterTypes.ASCENDING},
-    {label: 'Balance - Desc.', value: FilterTypes.DESCENDING}
+    {label: 'Balance - Asc.', value: OrderTypes.ASCENDING},
+    {label: 'Balance - Desc.', value: OrderTypes.DESCENDING}
   ]
 };

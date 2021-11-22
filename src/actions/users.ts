@@ -1,7 +1,7 @@
 import {createAction} from 'typesafe-actions';
 
 // declarations
-import {FilterTypes, TUser, TUserDto, UserModalStatuses} from 'declarations';
+import {OrderTypes, TUser, TUserDto, UserModalStatuses} from 'declarations';
 import {TDispatch, TState} from 'declarations';
 
 // constants
@@ -22,8 +22,7 @@ export const setErrors = createAction('SET/errors')<string[]>();
 export const setData = createAction('SET/data')<TUser[]>();
 export const setIsLoading = createAction('SET/isLoading')<boolean>();
 export const setFilter = createAction('SET/filter')<string>();
-export const setOrder =
-  createAction('SET/order')<Record<string, FilterTypes>>();
+export const setOrder = createAction('SET/order')<Record<string, OrderTypes>>();
 
 export const resetFormData = () => (dispatch: TDispatch) =>
   dispatch(setFormData(DEFAULT_USER_FORM_DATA));

@@ -1,12 +1,12 @@
 import {Button} from 'antd';
 
 // declarations
-import {FilterTypes} from 'declarations';
+import {OrderTypes} from 'declarations';
 
 type TProps = {
-  value: FilterTypes;
-  onChange: (value: FilterTypes) => void;
-  options: {label: string; value: FilterTypes}[];
+  value: OrderTypes;
+  onChange: (value: OrderTypes) => void;
+  options: {label: string; value: OrderTypes}[];
 };
 
 const SingleSelect: React.FC<TProps> = ({options, onChange, value}) => (
